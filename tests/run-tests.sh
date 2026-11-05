@@ -148,7 +148,13 @@ check_claude_prereqs() {
     if ! require_command "claude" "Claude CLI required"; then
         return 1
     fi
-    if ! require_plugin "ideaprobe" "IdeaProbe plugin must be installed"; then
+    # Project-local bundle (cloud sessions without /plugin): claude -p runs from
+    # the repo root, so .claude/skills and .claude/agents are discovered there.
+    if [ -f "$REPO_ROOT/.claude/ideaprobe/manifest.json" ]; then
+        cd "$REPO_ROOT"
+        return 0
+    fi
+    if ! require_plugin "ideaprobe" "IdeaProbe plugin (or project-local bundle) must be installed"; then
         return 1
     fi
     return 0

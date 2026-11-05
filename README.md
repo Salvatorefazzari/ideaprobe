@@ -23,6 +23,39 @@ Or from within a Claude Code session:
 /plugin install ideaprobe@ideaprobe
 ```
 
+### Project-local install (Claude Code on the web / cloud sessions)
+
+Where `/plugin` is unavailable (and plugin hooks never run), install IdeaProbe as
+plain project files that Claude Code discovers on its own:
+
+```bash
+# Inside a clone of this repo, it's already installed (.claude/ + CLAUDE.md are committed).
+# To add IdeaProbe to another project:
+python3 scripts/build-project-local.py --target /path/to/your/project
+```
+
+This generates:
+
+| Path | Purpose |
+|------|---------|
+| `.claude/skills/*/SKILL.md` | All 9 skills (`/idea-validation`, `/idea-comparison`, …) |
+| `.claude/agents/*.md` | The 4 research/review subagents |
+| `.claude/ideaprobe/refs/` | Scoring rubric, output templates, data sources, methodology |
+| `.claude/ideaprobe/manifest.json` | Version + list of generated files |
+| `CLAUDE.md` (marked block) | Bootstrap router, which replaces the session-start hook |
+
+`skills/`, `agents/` and `refs/` stay the source of truth. After editing them, re-run
+`python3 scripts/build-project-local.py` (the test suite fails if the bundle is stale).
+Re-running is idempotent and keeps any of your own content in `CLAUDE.md`.
+
+**Cloud caveats:**
+- Containers are ephemeral, so commit and push `.ideaprobe/user-profile.md` and any
+  saved reports (`.ideaprobe/reports/`) to keep them. Think twice if the repo is public.
+- Project subagents load at session start. If `.claude/agents/` was created mid-session,
+  skills fall back to `general-purpose` agents that read the agent file.
+- Research quality depends on the environment's web access. `WebSearch` may need loading
+  via ToolSearch, and some sites (notably reddit.com) may not be directly fetchable.
+
 ### Update
 
 ```bash
@@ -83,7 +116,7 @@ Ideas are scored across 5 dimensions (0-20 each, 0-100 total):
 
 On first use, IdeaProbe offers to set up a founder profile — your skills, distribution channels, constraints, and goals. This personalizes Founder Fit scoring across all validations.
 
-The profile is stored at `.ideaprobe/user-profile.md` in your project directory (not in the plugin — it survives updates). Manage it anytime with the `founder-profile` skill.
+The profile is stored at `.ideaprobe/user-profile.md` in your project directory (not in the plugin or the generated bundle, so it survives updates). Manage it anytime with the `founder-profile` skill.
 
 ## Architecture
 

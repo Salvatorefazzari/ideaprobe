@@ -1,0 +1,26 @@
+{
+  "name": "ideaprobe",
+  "version": "0.2.0",
+  "source": "https://github.com/j7an/ideaprobe",
+  "generator": "scripts/build-project-local.py",
+  "files": [
+    ".claude/agents/competitor-scout.md",
+    ".claude/agents/market-researcher.md",
+    ".claude/agents/sentiment-scanner.md",
+    ".claude/agents/validation-reviewer.md",
+    ".claude/ideaprobe/refs/data-sources.md",
+    ".claude/ideaprobe/refs/methodology.md",
+    ".claude/ideaprobe/refs/output-templates.md",
+    ".claude/ideaprobe/refs/scoring-rubric.md",
+    ".claude/ideaprobe/refs/user-profile.md",
+    ".claude/skills/community-sentiment/SKILL.md",
+    ".claude/skills/competitor-analysis/SKILL.md",
+    ".claude/skills/founder-profile/SKILL.md",
+    ".claude/skills/idea-comparison/SKILL.md",
+    ".claude/skills/idea-generation/SKILL.md",
+    ".claude/skills/idea-validation/SKILL.md",
+    ".claude/skills/market-research/SKILL.md",
+    ".claude/skills/mvp-scoping/SKILL.md",
+    ".claude/skills/using-ideaprobe/SKILL.md"
+  ]
+}
