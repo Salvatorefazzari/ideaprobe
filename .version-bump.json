@@ -1,9 +1,31 @@
 {
   "files": [
-    { "path": "package.json", "field": "version" },
-    { "path": ".claude-plugin/plugin.json", "field": "version" }
+    {
+      "path": "package.json",
+      "field": "version"
+    },
+    {
+      "path": ".claude-plugin/plugin.json",
+      "field": "version"
+    },
+    {
+      "path": ".claude/ideaprobe/manifest.json",
+      "field": "version"
+    }
   ],
   "audit": {
-    "exclude": ["docs", "node_modules", ".git", ".worktrees", "refs", "skills", "agents", "README.md"]
+    "exclude": [
+      "docs",
+      "node_modules",
+      ".git",
+      ".worktrees",
+      "refs",
+      "skills",
+      "agents",
+      "README.md",
+      ".claude",
+      "CLAUDE.md",
+      "RELEASE.md"
+    ]
   }
 }
